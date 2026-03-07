@@ -1,1 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Card Approval</title>
+    <style>
+    body {
+        font-family: Arial;
+        background-color: #7df3ed;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    form {
+        background: rgb(253, 253, 253);
+        padding: 30px;
+        border-radius: 10px;
+        width: 900px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 columns */
+        gap: 15px 40px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    input, select {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .button-container {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    button {
+        background: #007bff;
+        color: white;
+        padding: 10px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    h3 {
+        margin-top: 20px;
+    }
+
+    </style>
+</head>
+<body>
+
+<h2>Credit Card Approval Prediction</h2>
+
+<form action="{{ url_for('predict') }}" method="post">
+
+<div class="form-grid">
+
+    <!-- LEFT SIDE (First 7 Fields) -->
+
+    <div class="form-group">
+        <label>Own Car</label>
+        <select name="own_car">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Gender</label>
+        <select name="gender">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Own Property</label>
+        <select name="own_property">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Age</label>
+        <input type="number" name="Age" min="18" max="70" required>
+    </div>
+
+    <div class="form-group">
+        <label>Family Status</label>
+        <select name="family_status">
+            <option value="0">Civil marriage</option>
+            <option value="1">Married</option>
+            <option value="2">Single</option>
+            <option value="3">Separated</option>
+            <option value="4">Widow</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Education Type</label>
+        <select name="Education_Type">
+            <option value="0">Higher education</option>
+            <option value="1">Secondary</option>
+            <option value="2">Incomplete higher</option>
+            <option value="3">Lower secondary</option>
+            <option value="4">Academic degree</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Housing Type</label>
+        <select name="Housing_Type">
+            <option value="0">Rented apartment</option>
+            <option value="1">House / apartment</option>
+            <option value="2">Municipal apartment</option>
+            <option value="3">With parents</option>
+            <option value="4">Co-op apartment</option>
+            <option value="5">Office apartment</option>
+        </select>
+    </div>
+
+
+    <!-- RIGHT SIDE (Next 7 Fields) -->
+
+    <div class="form-group">
+        <label>Occupation Type</label>
+        <select name="occupation_type">
+            <option value="0">Other</option>
+            <option value="1">Security staff</option>
+            <option value="2">Sales staff</option>
+            <option value="3">Accountants</option>
+            <option value="4">Laborers</option>
+            <option value="5">Managers</option>
+            <option value="6">Drivers</option>
+            <option value="7">Core staff</option>
+            <option value="8">High skill tech staff</option>
+            <option value="9">Cleaning staff</option>
+            <option value="10">Private service staff</option>
+            <option value="11">Cooking staff</option>
+            <option value="12">Low-skill Laborers</option>
+            <option value="13">Medicine staff</option>
+            <option value="14">Secretaries</option>
+            <option value="15">Waiters/barmen staff</option>
+            <option value="16">HR staff</option>
+            <option value="17">IT staff</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Employment</label>
+        <select name="employed">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Income Type</label>
+        <select name="Income_Type">
+            <option value="0">Working</option>
+            <option value="1">Commercial associate</option>
+            <option value="2">Pensioner</option>
+            <option value="3">State servant</option>
+            <option value="4">Student</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Total Income</label>
+        <input type="number" name="Total_Income" min="10000" required>
+    </div>
+
+    <div class="form-group">
+        <label>Account Length</label>
+        <input type="number" name="Account_Length" min="0" max="80" required>
+    </div>
+
+    <div class="form-group">
+        <label>Number of Children</label>
+        <input type="number" name="Num_Children" min="0" max="10" required>
+    </div>
+
+    <div class="form-group">
+        <label>Number of Family Members</label>
+        <input type="number" name="Num_Family" min="1" max="20" required>
+    </div>
+
+</div>
+
+<div class="button-container">
+    <button type="submit">Predict</button>
+</div>
+
+</form>
+
+<h3>{{ prediction_text }}</h3>
+
+</body>
+
+</html>
